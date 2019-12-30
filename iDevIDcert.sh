@@ -68,22 +68,14 @@
 
 
 
-   sq=54
-
-
-   
    export rt=$out
    export intrdir=${cadir-$rt/Intermediate}
    export cfgdir=config
    export cadir=${cadir-$rt/ca}
    export rootca=$cadir
-
    export devIDdir=${devIDdir-$rt/iDevID}
    mkdir -p $devIDdir
    export dir=$cadir
-   
-
-   #echo $cfgdir
    export intdir=${cadir}/intermediate
    export int1ardir=${cadir}/inter_1ar
    export format=pem
@@ -91,18 +83,12 @@
    mkdir -p $devIDdir/newcerts
    mkdir -p $devIDdir/private
    mkdir -p $devIDdir/csr   
-
-
    sn=8
 
 
    export default_crl_days=2048
-  
 	source $cnfg
 	export commonName="/CN="$cn
-
-
-
 	DevID=$cn
 	
 	serialNumber="/serialNumber=$DevID"
