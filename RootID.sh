@@ -1,18 +1,49 @@
 #!/bin/bash
-# edit directory here, or override
-   #export cadir=${rt}/ca
-   #mkdir $cadir
-   sq=45
-   export rt=IDevIDModule
-   mkdir -p $rt
+
+  export flg=0
+  export flgcn=0
+  export cnfg=""
+  export flgout=0
+  export out=""
+  export cn=""
    
+   for arg in "$@"
+	do
+	   if [ "$flg" == 1 ]; then
+		cnfg=$arg
+		flg=0
+	fi
+	if [ "$flgout" == 1 ]; then
+		out=$arg
+		flgout=0
+	fi
+	if [ "$flgcn" == 1 ]; then
+			cn=$arg
+			flgcn=0
+	fi
+
+	if [ "$arg" == "--config" ] || [ "$arg" == "-config" ];    then
+		flg=1
+	fi
+	if [ "$arg" == "--cn" ] || [ "$arg" == "-cn" ];    then
+			flgcn=1
+        fi
+	if [ "$arg" == "--out" ] || [ "$arg" == "-out" ];    then
+		flgout=1
+	fi
+
+   done
+
+
+   echo $out
+
+   export rt=$out
+   mkdir -p $rt
    export cadir=${cadir-$rt/ca}
    mkdir -p $cadir
    export rootca=${cadir}
-   export cfgdir=$rt
+   export cfgdir=config
    export format=pem
-   export default_crl_days=65
-
    mkdir -p $cadir/certs
    mkdir -p $cadir/newcerts
    mkdir -p $cadir/private
@@ -23,78 +54,30 @@
    if [ ! -f $cadir/serial ]; then echo 00 >$cadir/serial; fi
 
    
-
-
-   sn=8
-   
- 
-  export flg=0
-  export cnfg=""
-   
-   for arg in "$@"
-	do
-	   if [ "$flg" == 1 ]; then
-		cnfg=$arg
-		flg=0
-		
-	fi
-	   if [ "$arg" == "--config" ] || [ "$arg" == "-config" ];    then
-		flg=1
-	    fi
-   done	
-
-  
    
    source $cnfg
-   
+   export commonName="/CN="$cn
    DN=$countryName$stateOrProvinceName$localityName
    DN=$DN$organizationName$organizationalUnitName$commonName
-
-   
-   export subjectAltName=email:postmaster@htt-consult.com
-
-   export default_crl_days=2048
+  
    
    ##########################################rootcert###################################################
    
-   
-   
-        #export pass=pass:
-	#export passin=pass:
-
-	# Create passworded keypair file
-
-	if [ ! -f $cadir/private/ca.key.$format ]; then
-		echo GENERATING KEY
-		#With encryption and passphrase		
-		#openssl genpkey -pass $pass -aes256 -algorithm ec -pkeyopt ec_paramgen_curve:prime256v1 -outform $format -pkeyopt ec_param_enc:named_curve -out $cadir/private/ca.key.$format
-
+	if [ ! -f $cadir/private/$cn.key.$format ]; then
 		#Without encryption		
-		openssl genpkey -algorithm ec -pkeyopt ec_paramgen_curve:prime256v1 -outform $format -pkeyopt ec_param_enc:named_curve -out $cadir/private/ca.key.$format
+		openssl genpkey -algorithm ec -pkeyopt ec_paramgen_curve:prime256v1 -outform $format -pkeyopt ec_param_enc:named_curve -out $cadir/private/$cn.key.$format
 
-		chmod 400 $cadir/private/ca.key.$format
-		#With encryption	
-		#openssl pkey -passin $passin -inform $format -in $cadir/private/ca.key.$format -text -noout
+		chmod 400 $cadir/private/$cn.key.$format
 
 		#Without encryption
-		openssl pkey -inform $format -in $cadir/private/ca.key.$format -text -noout
-
-		#openssl pkey -passin $passin -inform pem -in ca.key.pem -text -noout
+		openssl pkey -inform $format -in $cadir/private/$cn.key.$format -text -noout
 
 	fi
 
-	
-		#echo GENERATING and SIGNING REQ
-		#signing with encryptioned private key
-		#openssl req -config $rt/openssl-root.cnf -passin $passin -set_serial 0x$(openssl rand -hex $sn) -keyform $format -outform $format -key $cadir/private/ca.key.$format -subj "$DN" -new -x509 -days 7300 -sha256 -extensions v3_ca -out $cadir/certs/ca.cert.$format
-
-
 		#signing without encryptioned private key
-		openssl req -config $rt/openssl-root.cnf -set_serial 0x$(openssl rand -hex $sn) -keyform $format -outform $format -key $cadir/private/ca.key.$format -subj "$DN" -new -x509 -days 7300 -sha256 -extensions v3_ca -out $cadir/certs/ca.cert.$format
-
-
-		openssl x509 -inform $format -in $cadir/certs/ca.cert.$format -text -noout
-		openssl x509 -purpose -inform $format -in $cadir/certs/ca.cert.$format -inform $format
+		openssl req -config $cfgdir/openssl-root.cnf -keyform $format -outform $format -key $cadir/private/$cn.key.$format -subj "$DN" -new -x509 -days 7300 -sha256 -extensions v3_ca -out $cadir/certs/$cn.cert.$format
+		openssl x509 -inform $format -in $cadir/certs/$cn.cert.$format -text -noout
+		openssl x509 -purpose -inform $format -in $cadir/certs/$cn.cert.$format -inform $format
    
    
    

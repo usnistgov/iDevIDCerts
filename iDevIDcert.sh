@@ -1,79 +1,18 @@
 #!/bin/bash
 
 
-   sq=54
-
-
-   
-   export rt=IDevIDModule
-   export intrdir=${cadir-$rt/Intermediate}
-   export cfgdir=$rt
-   export cadir=${cadir-$rt/ca}
-   export rootca=$cadir
-
-   export devIDdir=${devIDdir-$rt/iDevID}
-   mkdir -p $devIDdir
-   export dir=$cadir
-   
-
-  
-
-
-
-   #echo $cfgdir
-   export intdir=${cadir}/intermediate
-   export int1ardir=${cadir}/inter_1ar
-   export format=pem
-   export default_crl_days=65
-   
-   mkdir -p $devIDdir/certs
-   mkdir -p $devIDdir/newcerts
-   mkdir -p $devIDdir/private
-   mkdir -p $devIDdir/csr   
-
-
-   sn=8
-
-   # edit these to suit
-   countryName="/C=US"
-   stateOrProvinceName="/ST=MI"
-   localityName="/L=Oak Park"
-   organizationName="/O=HTT Consulting"
-   #organizationalUnitName="/OU="
-   organizationalUnitName=
-   commonName="/CN=Root CA"
-   DN=$countryName$stateOrProvinceName$localityName
-   DN=$DN$organizationName$organizationalUnitName$commonName
-
-   echo $DN
-   export subjectAltName=email:postmaster@htt-consult.com
-
-   export default_crl_days=2048
-   
-   ##########################################rootcert###################################################
-   
-   
-   
-  
-   
-   
-   ####################################### 802.1AR Intermediate pki########################################
-  
-   
-   ############################iDevID certofocate#############
-
-	
-
-
-
 	export flg=0
         export flgcrt=0
 	export flgprvt=0
 	export flgchain=0
+	export flgcn=0
         export cnfg=""
         export cacert=""
         export caprvt=""
         export cachain=""
+        export cn=""
+	export flgout=0
+	export out=""
    
         for arg in "$@"
      	do
@@ -96,6 +35,15 @@
 			cachain=$arg
 			flgchain=0
 		   fi
+		   if [ "$flgcn" == 1 ]; then
+			cn=$arg
+			flgcn=0
+		   fi
+
+		   if [ "$flgout" == 1 ]; then
+			out=$arg
+			flgout=0
+		   fi
 
 		   if [ "$arg" == "--config" ] || [ "$arg" == "-config" ];    then
 			flg=1
@@ -109,13 +57,53 @@
 		  if [ "$arg" == "--cachain" ] || [ "$arg" == "-cachain" ];    then
 			flgchain=1
 		  fi
+		  if [ "$arg" == "--cn" ] || [ "$arg" == "-cn" ];    then
+			flgcn=1
+	          fi
+		  if [ "$arg" == "--out" ] || [ "$arg" == "-out" ];    then
+			flgout=1
+		   fi
 		
         done	
 
 
-	source $cnfg
 
-	DevID=DI$sq
+   sq=54
+
+
+   
+   export rt=$out
+   export intrdir=${cadir-$rt/Intermediate}
+   export cfgdir=config
+   export cadir=${cadir-$rt/ca}
+   export rootca=$cadir
+
+   export devIDdir=${devIDdir-$rt/iDevID}
+   mkdir -p $devIDdir
+   export dir=$cadir
+   
+
+   #echo $cfgdir
+   export intdir=${cadir}/intermediate
+   export int1ardir=${cadir}/inter_1ar
+   export format=pem
+   mkdir -p $devIDdir/certs
+   mkdir -p $devIDdir/newcerts
+   mkdir -p $devIDdir/private
+   mkdir -p $devIDdir/csr   
+
+
+   sn=8
+
+
+   export default_crl_days=2048
+  
+	source $cnfg
+	export commonName="/CN="$cn
+
+
+
+	DevID=$cn
 	
 	serialNumber="/serialNumber=$DevID"
 
@@ -164,8 +152,6 @@
 		 $devIDdir/certs/$DevID.cert.$format
 	openssl x509 -noout -text -in $devIDdir/certs/$DevID.cert.$format
 	
-	# offset of start of hardwareModuleName and use that in place of 493
-	#openssl asn1parse -i -strparse 135 -in $dir/certs/$DevID.cert.pem
 
 
 
