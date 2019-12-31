@@ -26,7 +26,7 @@
    crlnumber         = $dir/crlnumber
    crl               = $dir/crl/ca.crl.pem
    crl_extensions    = crl_ext
-   default_crl_days  = 30
+   default_crl_days  = $ENV::default_crl_days
    # SHA-1 is deprecated, so use SHA-2 instead.
    default_md        = sha256
 

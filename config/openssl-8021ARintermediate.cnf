@@ -9,7 +9,6 @@
 
    [ CA_default ]
    # Directory and file locations.
-   # dir               = /root/ca/8021ARintermediate
    dir               = $ENV::dir
    cadir             = $ENV::cadir
    format            = $ENV::format

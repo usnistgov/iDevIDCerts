@@ -1,5 +1,4 @@
 #!/bin/bash
-
   export flg=0
   export flgcn=0
   export cnfg=""
@@ -31,11 +30,7 @@
 	if [ "$arg" == "--out" ] || [ "$arg" == "-out" ];    then
 		flgout=1
 	fi
-
    done
-
-
-   echo $out
 
    export rt=$out
    mkdir -p $rt
@@ -48,12 +43,8 @@
    mkdir -p $cadir/newcerts
    mkdir -p $cadir/private
    mkdir -p $cadir/csr
-
-
    touch $cadir/index.txt $cadir/index.txt.attr
    if [ ! -f $cadir/serial ]; then echo 00 >$cadir/serial; fi
-
-   
    
    source $cnfg
    export commonName="/CN="$cn
@@ -61,21 +52,16 @@
    DN=$DN$organizationName$organizationalUnitName$commonName
   
    
-   ##########################################rootcert###################################################
-   
 	if [ ! -f $cadir/private/$cn.key.$format ]; then
 		#Without encryption		
 		openssl genpkey -algorithm ec -pkeyopt ec_paramgen_curve:prime256v1 -outform $format -pkeyopt ec_param_enc:named_curve -out $cadir/private/$cn.key.$format
-
 		chmod 400 $cadir/private/$cn.key.$format
-
 		#Without encryption
 		openssl pkey -inform $format -in $cadir/private/$cn.key.$format -text -noout
-
 	fi
 
 		#signing without encryptioned private key
-		openssl req -config $cfgdir/openssl-root.cnf -keyform $format -outform $format -key $cadir/private/$cn.key.$format -subj "$DN" -new -x509 -days 7300 -sha256 -extensions v3_ca -out $cadir/certs/$cn.cert.$format
+		openssl req -config $cfgdir/openssl-root.cnf -keyform $format -outform $format -key $cadir/private/$cn.key.$format -subj "$DN" -new -x509 -days $default_crl_days -sha256 -extensions v3_ca -out $cadir/certs/$cn.cert.$format
 		openssl x509 -inform $format -in $cadir/certs/$cn.cert.$format -text -noout
 		openssl x509 -purpose -inform $format -in $cadir/certs/$cn.cert.$format -inform $format
    
