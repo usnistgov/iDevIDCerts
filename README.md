@@ -1,4 +1,4 @@
-1. To generate root CA use following command:\
+1. To generate root CA use following command:
 
       ./RootID.sh -config "config file" -cn "Common Name" -out "output Folder Name" 
 
@@ -8,7 +8,7 @@ Example:
 
 Check the ca directory. The root certificate has the name test/ca/certs/root.cert.pem. The common name is used to name the root certificate.
 
-2. To generate Intermediate CA use following command:\
+2. To generate Intermediate CA use following command:
 
        ./IntermediateCert.sh -config config_Intermediate.conf -cacert "root ca cert" -caprivate "root ca private key" -cn "Common Name" -out "output Folder Name" 
 
