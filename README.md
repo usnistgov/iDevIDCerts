@@ -1,7 +1,7 @@
 1. To generate root CA use following command:\
 ./RootID.sh -config "config file" -cn "Common Name" -out "output Folder Name" \
 Example: \
-./RootID.sh -config config/config_Root.conf -out test -cn root \
+./RootID.sh -config config/config_Root.conf -out test -cn root 
 
 2. To generate Intermediate CA use following command:\
 ./IntermediateCert.sh -config config_Intermediate.conf -cacert "root ca cert" -caprivate "root ca private key" -cn "Common Name" -out "output Folder Name" \
