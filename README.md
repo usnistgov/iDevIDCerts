@@ -1,4 +1,4 @@
-1. To generate root CA use following command:\n
+1. To generate root CA use following command:\
 ./RootID.sh -config "config file" -cn "Common Name" -out "output Folder Name" \n
 Example: \n
 ./RootID.sh -config config/config_Root.conf -out test -cn root \n
