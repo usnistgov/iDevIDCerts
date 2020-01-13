@@ -30,6 +30,18 @@ Example:
 
 You can use the root cert directly if you do not want intermediate certificates.
 
+
+In order to convert key or cert from pem to der use the following command:
+
+       ./pemTOder.sh -filetype "key/cert" -in "input pem key path" -out "output der key path"
+
+Example: 
+
+       ./pemTOder.sh -filetype key -in test/iDevID/private/DevID.key.pem -out test/iDevID/private/DevID.key.der
+
+       ./pemTOder.sh -filetype cert -in test/iDevID/certs/DevID.cert.pem -out test/iDevID/certs/DevID.cert.der
+
+
 # Acknowledgement
 
 TBD  Reference the R. Moscovikz IETF draft here.
