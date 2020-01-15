@@ -44,8 +44,7 @@ Example:
 
 # Acknowledgement
 
-TBD  Reference the R. Moscovikz IETF draft here.
-[R. Moskowitz. "Guide for building an ECC pki draft-moskowitz-ecdsa-pki-05." *IETF Draft. March 11, 2019](https://tools.ietf.org/html/draft-moskowitz-ecdsa-pki-05)
+[R. Moskowitz et al. "Guide for building an ECC pki draft-moskowitz-ecdsa-pki-05" IETF Draft March 11, 2019](https://tools.ietf.org/html/draft-moskowitz-ecdsa-pki-05)
 
 # Disclaimers
 
