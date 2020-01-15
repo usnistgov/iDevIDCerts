@@ -45,6 +45,7 @@ Example:
 # Acknowledgement
 
 TBD  Reference the R. Moscovikz IETF draft here.
+[@gan]: https://papers.nips.cc/paper/5423-generative-adversarial-nets
 
 # Disclaimers
 
