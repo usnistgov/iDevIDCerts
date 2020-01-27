@@ -107,8 +107,19 @@
 		-in $devIDdir/csr/$DevID.csr.$format\
 		-out $devIDdir/certs/$DevID.cert.$format
 	chmod 444 $devIDdir/certs/$DevID.cert.$format
-	openssl verify -CAfile cachain\
-		 $devIDdir/certs/$DevID.cert.$format
+
+	#echo openssl verify -CAfile $cachain $devIDdir/certs/$DevID.cert.$format
+	
+	if [ "$cachain" != "" ] ;    then
+		openssl verify -CAfile $cachain $devIDdir/certs/$DevID.cert.$format
+		
+	fi
+
+	if [ "$cachain" == "" ] ;    then
+		openssl verify -CAfile $cacert $devIDdir/certs/$DevID.cert.$format
+		
+ 	fi
+
 	openssl x509 -noout -text -in $devIDdir/certs/$DevID.cert.$format
 	
 
