@@ -109,7 +109,7 @@
 	chmod 444 $devIDdir/certs/$DevID.cert.$format
 
 
-	if [ "$cachain" != "" ] || [ "$arg" == "-cachain" ];    then
+	if [ "$cachain" != "" ] ;    then
 		openssl verify -CAfile $cachain $devIDdir/certs/$DevID.cert.$format
 		
 	fi
