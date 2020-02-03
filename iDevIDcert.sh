@@ -1,4 +1,5 @@
-	#!/bin/bash
+#!/bin/bash
+
 	export flg=0
         export flgcrt=0
 	export flgprvt=0
