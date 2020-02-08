@@ -1,21 +1,22 @@
 #!/bin/bash
 
 	export flg=0
-        export flgcrt=0
+    export flgcrt=0
 	export flgprvt=0
 	export flgchain=0
 	export flgcn=0
-        export cnfg=""
-        export cacert=""
-        export caprvt=""
-        export cachain=""
-        export cn=""
+    export cnfg=""
+    export cacert=""
+    export caprvt=""
+    export cachain=""
+    export cn=""
 	export flgout=0
 	export out=""
+    export flagsn=0
    
         for arg in "$@"
      	do
-	     	   if [ "$flg" == 1 ]; then
+	       if [ "$flg" == 1 ]; then
 			cnfg=$arg
 			flg=0
 		   fi
@@ -44,12 +45,17 @@
 			flgout=0
 		   fi
 
+           if [ "$flgsn" == 1 ]; then
+             serialNumber=$arg
+             flagsn=0
+		   fi
+
 		   if [ "$arg" == "--config" ] || [ "$arg" == "-config" ];    then
 			flg=1
-		    fi
+		  fi
 		  if [ "$arg" == "--cacert" ] || [ "$arg" == "-cacert" ];    then
 			flgcrt=1
-		    fi
+		  fi
 		  if [ "$arg" == "--caprivate" ] || [ "$arg" == "-caprivate" ];    then
 			flgprvt=1
 		    fi
@@ -58,11 +64,14 @@
 		  fi
 		  if [ "$arg" == "--cn" ] || [ "$arg" == "-cn" ];    then
 			flgcn=1
-	          fi
+	      fi
 		  if [ "$arg" == "--out" ] || [ "$arg" == "-out" ];    then
 			flgout=1
-		   fi
-		
+		  fi
+		  if [ "$arg" == "--sn" ] || [ "$arg" == "-sn" ];    then
+			flgsn=1
+          fi
+ 
         done	
 
    export rt=$out
@@ -82,7 +91,7 @@
 	source $cnfg
 	export commonName="/CN="$cn
 	DevID=$cn
-	serialNumber="/serialNumber=$DevID"
+	serialNumber="/serialNumber=$serialNumber"
 	DN=$countryName$stateOrProvinceName$localityName
 	DN=$DN$organizationName$organizationalUnitName$commonName
 	DN=$DN$serialNumber
