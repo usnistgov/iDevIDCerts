@@ -1,5 +1,10 @@
 # 802.1AR Device Certificate Generation scripts
 
+Edit the config following files and change fields as appropriate:
+
+      config/config_iDevID.conf  
+      config/config_Intermediate.conf  
+      config/config_Root.conf 
 
 To generate root CA use following command:
 
@@ -43,6 +48,17 @@ Example:
        ./pemTOder.sh -filetype key -in test/iDevID/private/DevID.key.pem -out test/iDevID/private/DevID.key.der
 
        ./pemTOder.sh -filetype cert -in test/iDevID/certs/DevID.cert.pem -out test/iDevID/certs/DevID.cert.der
+
+Demo Scripts that do the above steps and clean up unncessary files:
+ 
+       rm -rf test1
+       sh gencerts-example.sh
+
+The following works with intermediate certificates:
+
+       rm -rf test2
+       sh gencerts-example1.sh
+
 
 
 # Acknowledgement
