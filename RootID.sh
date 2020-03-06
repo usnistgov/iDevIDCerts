@@ -44,7 +44,7 @@
    mkdir -p $cadir/private
    mkdir -p $cadir/csr
    touch $cadir/index.txt $cadir/index.txt.attr
-   if [ ! -f $cadir/serial ]; then echo 00 >$cadir/serial; fi
+   if [ ! -f $cadir/serial ]; then echo 50 >$cadir/serial; fi
    
    source $cnfg
    export commonName="/CN="$cn
@@ -64,34 +64,4 @@
 		openssl req -config $cfgdir/openssl-root.cnf -keyform $format -outform $format -key $cadir/private/$cn.key.$format -subj "$DN" -new -x509 -days $default_crl_days -sha256 -extensions v3_ca -out $cadir/certs/$cn.cert.$format
 		openssl x509 -inform $format -in $cadir/certs/$cn.cert.$format -text -noout
 		openssl x509 -purpose -inform $format -in $cadir/certs/$cn.cert.$format -inform $format
-   
-   
-   
-   
-
- 
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
    
