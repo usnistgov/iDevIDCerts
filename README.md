@@ -60,12 +60,17 @@ The following works with intermediate certificates:
        sh gencerts-example1.sh
 
 
+# Testing
+ 
+  These scripts have been tested with openssl 1.1.1
 
 # Acknowledgement
 
 The scripts in this repository were obtained from 
 
 [Moskowitz et al. "Guide for building an ECC pki draft-moskowitz-ecdsa-pki-05" *IETF Draft.* March 11, 2019.](https://tools.ietf.org/html/draft-moskowitz-ecdsa-pki-05)
+
+The openssl configuration for the MUDSIGNER extensions were contributed by Eliot Lear (Cisco).
 
 # Disclaimers
 
