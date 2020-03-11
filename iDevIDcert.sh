@@ -113,7 +113,8 @@
 	openssl rand -hex $sn > $devIDdir/serial # hex 8 is minimum, 19 is maximum
 	# Note 'openssl ca' does not support DER format
 	openssl ca -config $cfgdir/openssl-8021ARintermediate.cnf -days $default_crl_days\
-		-extensions mud_signers -extfile $cfgdir/openssl-mudsigners.cnf -notext -md sha256 \
+		-extensions mud_signers -extfile $cfgdir/openssl-mudsigners.cnf \
+        -notext -md sha256 \
 		-in $devIDdir/csr/$DevID.csr.$format\
 		-out $devIDdir/certs/$DevID.cert.$format
 	chmod 444 $devIDdir/certs/$DevID.cert.$format
