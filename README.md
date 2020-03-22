@@ -1,5 +1,14 @@
 # 802.1AR Device Certificate Generation scripts
 
+This project publishes shell scripts and configuration files to generate 802.1AR Device Certificates using openssl.
+
+This project is part of the Trustworthy Network Of Things project at NIST. Please see the following link:
+
+[Trustworthy Networks of Things](https://www.nist.gov/programs-projects/trustworthy-networks-things)
+
+
+# Procedure
+
 Edit the config following files and change fields as appropriate:
 
       config/config_iDevID.conf  
@@ -71,6 +80,9 @@ The scripts in this repository were obtained from
 [Moskowitz et al. "Guide for building an ECC pki draft-moskowitz-ecdsa-pki-05" *IETF Draft.* March 11, 2019.](https://tools.ietf.org/html/draft-moskowitz-ecdsa-pki-05)
 
 The openssl configuration for the MUDSIGNER extensions were contributed by Eliot Lear (Cisco).
+
+
+
 
 # Disclaimers
 
