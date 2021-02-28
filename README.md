@@ -1,6 +1,6 @@
 # 802.1AR Device Certificate and TLSA Record Generation scripts
 
-This project publishes shell scripts and configuration files to generate 802.1AR Device Certificates using openssl. The project also includes the shell scripts for TLSA records generation for clients in DevID format[[1]](#1).
+This project publishes shell scripts and configuration files to generate 802.1AR Device Certificates using openssl. The project also includes the shell scripts for TLSA records generation to publish client certificates or public keys in DevID format as specified in [[1]](#1).
 
 
 This project is part of the Trustworthy Network Of Things project at NIST. Please see the following link:
@@ -68,6 +68,12 @@ The following works with intermediate certificates:
 
        rm -rf test2
        sh gencerts-example1.sh
+
+To generate TLSA record use following command:
+
+      ./TLSARR.sh -device "device name" -domain "organization" -usage "PKIX-TA / PKIX-EE / DANE-TA / DANE-EE" -selector "full-cert / spk" -matching "no-hash / sha256 / sha512" -cert "iDevID pem certificate"
+       
+
 
 
 # Testing
