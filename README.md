@@ -72,10 +72,12 @@ The following works with intermediate certificates:
 To generate TLSA record use following command:
 
       ./TLSARR.sh -device "device name" -domain "organization" -usage "PKIX-TA / PKIX-EE / DANE-TA / DANE-EE" -selector "full-cert / spk" -matching "no-hash / sha256 / sha512" -cert "iDevID pem certificate"
-       
 
-
-
+Example: 
+      
+      ./TLSARR.sh -device sensor7 -domain example.com -usage DANE-EE -selector spk -matching sha512 -cert test/iDevID/certs/DevID.cert.pem
+      
+      
 # Testing
  
   These scripts have been tested with openssl 1.1.1
