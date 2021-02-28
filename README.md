@@ -1,6 +1,7 @@
-# 802.1AR Device Certificate Generation scripts
+# 802.1AR Device Certificate and TLSA Record Generation scripts
 
-This project publishes shell scripts and configuration files to generate 802.1AR Device Certificates using openssl.
+This project publishes shell scripts and configuration files to generate 802.1AR Device Certificates using openssl. The project also includes the shell scripts for TLSA records generation for clients in DevID format[[1]](#1).
+
 
 This project is part of the Trustworthy Network Of Things project at NIST. Please see the following link:
 
@@ -81,6 +82,11 @@ The scripts in this repository were obtained from
 
 The openssl configuration for the MUDSIGNER extensions were contributed by Eliot Lear (Cisco).
 
+## References
+<a id="1">[1]</a> 
+S. Huque, V. Dukhovni , IETF Draft (2020). 
+TLS Client Authentication via DANE TLSA records. 
+https://tools.ietf.org/id/draft-huque-dane-client-cert-04.html
 
 
 
